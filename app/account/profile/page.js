@@ -1,10 +1,11 @@
 import SelectCountry from "@/app/_components/SelectCountry";
 
+
 export const metadata = {
   title: "Update Profile",
 };
 
-export default function Page() {
+export default async function Page() {
   // CHANGE
   const countryFlag = "pt.jpg";
   const nationality = "portugal";
@@ -40,11 +41,11 @@ export default function Page() {
         <div className="space-y-2">
           <div className="flex items-center justify-between">
             <label htmlFor="nationality">Where are you from?</label>
-            <img
+            {/* <img
               src={countryFlag}
               alt="Country flag"
               className="h-5 rounded-sm"
-            />
+            /> */}
           </div>
 
           <SelectCountry
