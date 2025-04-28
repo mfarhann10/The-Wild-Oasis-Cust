@@ -1,9 +1,10 @@
 "use server"
 
+import { revalidatePath } from "next/cache";
 import { auth, signIn, signOut } from "./auth";
 import { supabase } from "./supabase";
 
-export async function updateProfile(formData) {
+export async function updateGuest(formData) {
   const session = await auth();
   if (!session) throw new Error("You must be logged in");
 
@@ -20,11 +21,10 @@ export async function updateProfile(formData) {
     .update(updateData)
     .eq("id", session.user.guestId);
 
-  if (error) {
-    throw new Error("Guest could not be updated");
-  }
-}
+  if (error) throw new Error("Guest could not be updated");
 
+  revalidatePath("/account/profile");
+}
 export async function signInAction() {
   await signIn("google", { redirectTo: "/account" });
 }
